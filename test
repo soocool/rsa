@@ -1,0 +1,16 @@
+import rsa
+from Crypto.PublicKey import RSA
+import gmpy2
+pub = RSA.importKey(open('rsa\public0.pem').read())
+e=pub.e
+n=pub.n
+print n
+print e
+def dec(p,q):
+    d=int(gmpy2.invert(e,(p-1)*(q-1)))
+    privatekey=rsa.PrivateKey(n,e,d,p,q)
+    with open("rsa/flag0.enc","rb") as f:
+        print(rsa.decrypt(f.read(),privatekey)).decode()
+p=258631601377848992211685134376492365269
+q=286924040788547268861394901519826758027
+#dec(p,q)
